@@ -10,9 +10,23 @@
             </t>
         </t>
     </template>
+
+    <template id="custmoize_layout">
+        <t t-name="elecinvocie.custmoize_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+
+      
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+          <t t-raw="0"/>
+        </div>
+    </t>
+    </template>
+    
+
     <template id="am_report_2">
         <t t-name="elecinvocie.hwp_document_high">
-            <t t-call="web.internal_layout">
+            <t t-call="elecinvocie.custmoize_layout">
                 <t t-set="o" t-value="o.with_context()"/>
 
                 <style> 

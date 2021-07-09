@@ -12,7 +12,7 @@
     </template>
     <template id="am_reportsample_2">
         <t t-name="elecinvocie.hwp_document_high">
-            <t t-call="web.internal_layout">
+            <t t-call="elecinvocie.custmoize_layout">
                 <t t-set="o" t-value="o.with_context()"/>
 
                 <style> 
