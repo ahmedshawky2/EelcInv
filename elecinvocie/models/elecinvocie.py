@@ -1,0 +1,82 @@
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api
+from odoo import exceptions
+from odoo.exceptions import ValidationError
+import json
+import datetime
+import string
+import requests
+import qrcode
+import base64
+from io import BytesIO
+
+import logging
+_logger = logging.getLogger(__name__)
+
+
+class elecinvocie (models.Model):
+    _inherit = 'account.move'
+
+    qr_code = fields.Binary("QR Code", attachment=True, store=True)
+    qr_code_sample = fields.Binary("QR Code", attachment=True, store=True)
+    qr_link_sample = fields.Char(string='Url Sample')
+    qr_link = fields.Char(string='Url')
+    qr_unique_code = fields.Char(string='Code',index=True)
+    supply_date  = fields.Date(string='Date of Supply')
+
+
+
+    @api.onchange('qr_unique_code')
+    def generate_qr_code(self):
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+
+        qr_sample = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        self.qr_link = base_url+"/invoicetax?invociekey=" +str(self.id).replace("NewId_","")
+        self.qr_link_sample = base_url+"/sampleinvoicetax?invociekey=" +str(self.id).replace("NewId_","")
+        
+        qr.add_data(self.qr_link)
+        qr.make(fit=True)
+        img = qr.make_image()
+        temp = BytesIO()
+        img.save(temp, format="PNG")
+        qr_image = base64.b64encode(temp.getvalue())
+        
+        qr_sample.add_data(self.qr_link_sample)
+        qr_sample.make(fit=True)
+        img_sample = qr_sample.make_image()
+        temp_sample = BytesIO()
+        img_sample.save(temp_sample, format="PNG")
+        qr_image_sample = base64.b64encode(temp_sample.getvalue())
+        
+        
+        
+        self.qr_code = qr_image
+        self.qr_code_sample = qr_image_sample
+
+
+
+    
+
+    @api.onchange('name')
+    def generate_qr_unique_code(self):
+        self.qr_unique_code = self.name.replace("/","_")
+        self.generate_qr_code()
+
+    def action_post(self):
+        
+        res = super(elecinvocie,self).action_post()
+        self.generate_qr_unique_code()
+    
+  
+  

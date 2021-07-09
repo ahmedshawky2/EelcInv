@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!--elecinvocie-->
+    <record id="action_elecinvocie" model="ir.actions.act_window">
+      <field name="name">List of value</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">elecinvocie</field>
+      <field name="view_mode">tree,form</field>
+
+
+    </record>
+
+
+
+    <record id="view_elecinvocie_list" model="ir.ui.view">
+      <field name="name">view_elecinvocie_list</field>
+      <field name="model">elecinvocie</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name"/>
+          <field name="x_type"/>
+          <field name="x_val"/>
+          <field name="x_parent"/>
+          <field name="x_parent_sales_team"/>
+          <field name="active"/>
+          <field name="x_desc"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record id="view_elecinvocie_form" model="ir.ui.view">
+      <field name="name">view_elecinvocie_form</field>
+      <field name="model">elecinvocie</field>
+
+      <field name="arch" type="xml">
+        <form  >
+
+          <sheet>
+            <group name="group_1">
+              <group name="group_left">
+                <field name="x_type"/>
+                <field name="name"/>
+                <field name="x_val"/>
+                <field name="x_parent"/>
+                <field name="x_parent_sales_team"/>
+              </group>
+              <group name="group_right">
+                <field name="active"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+              </group>
+            </group>
+          </sheet>
+
+        </form>
+      </field>
+    </record>
+
+
+
+
+    <record id="elecinvocie_search_view" model="ir.ui.view">
+      <field name="active" eval="True"/>
+      <field name="arch" type="xml">
+        <search string="elecinvocie">
+          <field name="name" modifiers="{&quot;required&quot;: true}"/>
+          <field name="x_type"/>
+          <field name="x_parent"/>
+          <field name="x_val"/>
+          <group name="cs_group_by">
+            <filter name="cs_group_by_1xgVO" string="Parent" context="{'group_by': 'x_parent'}"/>
+            <filter name="cs_group_by_HUoq5" string="Type" context="{'group_by': 'x_type'}"/>
+          </group>
+        </search>
+      </field>
+      <field name="field_parent" eval="False"/>
+      <field name="groups_id" eval="[(6, 0, [])]"/>
+      <field name="inherit_id" eval="False"/>
+      <field name="key" eval="False"/>
+      <field name="mode">primary</field>
+      <field name="model">elecinvocie</field>
+      <field name="name">Default search view for elecinvocie</field>
+      <field name="priority">16</field>
+      <field name="type">search</field>
+    </record>
+
+
+
+
+
+
+  </data>
+</odoo>

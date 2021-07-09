@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <report id="am_r_report_1" model="hse" string="Hot work permit" print_report_name = "(('HWP#'+(object.name or '')).replace('/','')+'.pdf')" report_type="qweb-pdf" name="hse.am_report_1" file="hse.am_report_1" />
+
+    <template id="am_report_1">
+        <t t-name="hse.hwp">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="hse.am_report_2" />
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="am_report_2">
+        <t t-name="hse.hwp_document_high">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context()"/>
+
+
+
+
+                <style type="text/css">
+                    <![CDATA[
+
+
+
+
+
+
+]]>
+                </style>
+
+                <style> 
+                .basefont
+{
+    
+    font-family:"Calibri",sans-serif;
+    font-size:15px; 
+
+}
+.rotate90 {
+   
+    /* Rotate div */
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+
+}
+
+.rotate {
+   
+    /* Rotate div */
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+
+}
+                </style>
+
+
+                <div class="page basefont">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <h2 t-field="o.name"/>
+                        </div>
+                        <div class="col-6 text-right" >
+                       <h2>Hot Work permit</h2>
+                        </div>
+                    </div>
+<br/>
+                    <!--
+                    <h1 style="text-align: center;">RFQ# 
+                        <b>
+                            <span t-field="o.name"/>
+                        </b>
+                    </h1>
+                    
+                    <br/>
+                    -->
+                    <div dir="rtl">
+                        <table class="table table-bordered o_main_table" style="width: 100%">
+                            <tr>
+                                <td rowspan="7">
+                                    <p class="rotate90 pt-5  text-center ">الادارة الطالبه</p>
+                                </td>
+                                <td>الادارة الطالبه / المصنع</td>
+                                <td>
+                                    <span t-field="o.originator_dep.name" />
+                                </td>
+                                <td>Originator</td>
+                                <td>الادارة المنقذ</td>
+                                <td>
+                                    <span t-field="o.performer_dep.name" />
+                                </td>
+                                <td>Performer</td>
+                                <td rowspan="7">
+                                    <p class="rotate pt-5">Originator</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>الموقع</td>
+                                <td>
+                                    <span t-field="o.location" />
+                                </td>
+                                <td>location</td>
+                                <td>التاريخ</td>
+                                <td>
+                                    <span t-field="o.start_date" t-options='{"format": "dd/MM/yyyy"}'/>
+
+                                </td>
+                                <td>Date</td>
+                            </tr>
+
+                            <tr>
+                                <td>رقم المعدة</td>
+                                <td>
+                                    <span t-field="o.unit" />
+                                </td>
+                                <td>Unit</td>
+                                <td>التاريخ من: الي</td>
+                                <td>
+                                    <span t-field="o.start_date" t-options='{"format": "hh:mm"}'/>
+                                   -
+                                    <span t-field="o.end_date" t-options='{"format": "hh:mm"}'/>
+                                </td>
+                                <td>Period From : to</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" style="text-align: right ;border:none;">توصيف العمل</td>
+
+                                <td colspan="3" style="text-align: left;border:none;">
+        To carry on the following cold work
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+
+                                <td colspan="6" style="text-align: left;border:none;">
+                                    <p t-field="o.work_desc" />
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Name /الاسم </td>
+                                <td>
+                                    <span t-field="o.orginator_hremp" />
+                                </td>
+                                <td>Empl.No./رقم القيد</td>
+                                <td>
+                                    <span t-field="o.orginator_empid" />
+                                </td>
+                                <td rowspan="2" colspan ="2">
+                                    Sign. /التوقع  
+                                </td >
+
+                            </tr>
+
+                            <tr>
+                                <td>Time / الوقت </td>
+                                <td>
+                                    <span t-field="o.orginator_datetime" t-options='{"format": "hh:mm"}'/>
+                                </td>
+                                <td>Date /التاريخ  </td>
+                                <td>
+                                    <span t-field="o.orginator_datetime" t-options='{"format": "dd/MM/yyyy"}'/>
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

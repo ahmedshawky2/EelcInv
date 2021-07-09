@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="parent_menu_elecinvocie" name="elecinvocie" action="action_elecinvocie" sequence="3001" web_icon="elecinvocie,static/description/icon.png" groups="elecinvocie.elecinvocie_group_employee,elecinvocie.elecinvocie_group_admin"/>
+
+
+
+
+
+</odoo>     

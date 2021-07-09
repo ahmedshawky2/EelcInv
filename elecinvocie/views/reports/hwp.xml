@@ -1,0 +1,500 @@
+<?xml version="1.0"?>
+<odoo>
+    <report id="am_r_report_1" model="hse" string="Hot work permit" print_report_name = "(('HWP#'+(object.name or '')).replace('/','')+'.pdf')" report_type="qweb-pdf" name="hse.am_report_1" file="hse.am_report_1" />
+    <template id="am_report_1">
+        <t t-name="hse.hwp">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="hse.am_report_2" />
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="am_report_2">
+        <t t-name="hse.hwp_document_high">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context()"/>
+                <style type="text/css">
+                    <![CDATA[
+]]>
+                </style>
+                <style> 
+                .basefont
+{
+    font-family:"Calibri",sans-serif;
+    font-size:14px; 
+       margin: 0 !important;
+   padding: 0 !important;
+}
+.rotate90 {
+    /* Rotate div */
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+.rotate {
+    /* Rotate div */
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+}
+td 
+{
+    margin: 0 !important;
+   padding: 0 !important;
+}
+
+tr 
+{
+    margin: 0 !important;
+   padding: 0 !important;
+}
+
+                </style>
+                <div class="page basefont">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <h2 t-field="o.name"/>
+                        </div>
+                        <div class="col-6 text-right">
+                            <h2>Hot Work permit</h2>
+                        </div>
+                    </div>
+                    <br/>
+                    <!--
+                    <h1 style="text-align: center;">RFQ# 
+                        <b>
+                            <span t-field="o.name"/>
+                        </b>
+                    </h1>
+                    <br/>
+                    -->
+                    <div dir="rtl">
+                        <table class="table table-bordered o_main_table" style="width: 100%">
+                            <tr class="text-light bg-dark">
+                                <td colspan ="3" style="border:none;" class="text-right">
+                                الادارة الطالبه
+                                </td>
+                                <td colspan ="3" style="border:none;" class="text-left">
+                                Originator
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>الادارة الطالبه / المصنع</td>
+                                <td>
+                                    <span t-field="o.originator_dep.name" />
+                                </td>
+                                <td>Originator</td>
+                                <td>الادارة المنقذ</td>
+                                <td>
+                                    <span t-field="o.performer_dep.name" />
+                                </td>
+                                <td>Performer</td>
+                            </tr>
+                            <tr>
+                                <td>الموقع</td>
+                                <td>
+                                    <span t-field="o.location" />
+                                </td>
+                                <td>location</td>
+                                <td>التاريخ</td>
+                                <td>
+                                    <span t-field="o.start_date" t-options='{"format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td>Date</td>
+                            </tr>
+                            <tr>
+                                <td>رقم المعدة</td>
+                                <td>
+                                    <span t-field="o.unit" />
+                                </td>
+                                <td>Unit</td>
+                                <td>التاريخ من: الي</td>
+                                <td>
+                                    <span t-field="o.start_date" t-options='{"format": "hh:mm"}'/>
+                                   -
+                                    <span t-field="o.end_date" t-options='{"format": "hh:mm"}'/>
+                                </td>
+                                <td>Period From : to</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: right ;border:none;">توصيف العمل</td>
+                                <td colspan="3" style="text-align: left;border:none;">
+        To carry on the following cold work
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="text-align: left;border:none;">
+                                    <p t-field="o.work_desc" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Name /الاسم </td>
+                                <td>
+                                    <span t-field="o.orginator_hremp" />
+                                </td>
+                                <td>Empl.No./رقم القيد</td>
+                                <td>
+                                    <span t-field="o.orginator_empid" />
+                                </td>
+                                <td rowspan="2" colspan ="2">
+                                    Sign. /التوقع  
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.orginator_binary_s)" style="max-height: 100px;"/>
+                                </td >
+                            </tr>
+                            <tr>
+                                <td>Time / الوقت </td>
+                                <td>
+                                    <span t-field="o.orginator_datetime" t-options='{"format": "hh:mm"}'/>
+                                </td>
+                                <td>Date /التاريخ  </td>
+                                <td>
+                                    <span t-field="o.orginator_datetime" t-options='{"format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <!--      Authrity                   -->
+                            </tr>
+                            <tr class="text-light bg-dark">
+                                <td colspan ="3" style="border:none;" class="text-right">
+                                الادارة التي يتبعها المكان
+                                </td>
+                                <td colspan ="3" style="border:none;" class="text-left">
+                                Area Authority
+                                </td>
+                            </tr>
+                            <tr style="background:lightgray">
+                                <td colspan ="2" class="text-right"> ا- قائمة الاجراءات و الأحوال</td>
+                                <td class="text-center" colspan ="2">value/القيمه</td>
+                                <td colspan ="2">A-Action  andt condition</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">تم التفريغ \ التصفية</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_depressurized"/>
+                                </td>
+                                <td colspan ="2">Depressurized/drained</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 N2/تم الكسح بالماء </td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_flushed_Water"/>
+                                </td>
+                                <td colspan ="2">N2 / or water flushed</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 تمت التهويه الكافبه </td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_ventilated"/>
+                                </td>
+                                <td colspan ="2">Ventilated properly'</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 تم العزل بالسد/ اوالغصل </td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_islolated"/>
+                                </td>
+                                <td colspan ="2">Isolated by blinding, disconnected</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 تم العزل عن القوى الكهربانيه ووضعت' اليطافات تصريح رقم:	
+                                </td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_permit_number_elec"/>
+                                </td>
+                                <td colspan ="2">Machines/ devices/ electric isolated/ tagged Permit No</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 الاضاءة كافيه	</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_lighting"/>
+                                </td>
+                                <td colspan ="2">Lighting Is sufficient</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 المنطقه نظيفه ومامونة	</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-field="o.related_is_area_clean"/>
+                                </td>
+                                <td colspan ="2">Area clean and safet</td>
+                            </tr>
+                            <!--      part2                  -->
+                            <tr style="background:lightgray">
+                                <td colspan ="2" class="text-right"> ب- ملابس ومعدات السلامة المطلوبة</td>
+                                <td colspan ="2" class="text-center">Mark/ علامه</td>
+                                <td colspan ="2">B- Safety equip. And clothing required</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">	 نظارات سلامة	</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_goggles=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_goggles=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_goggles"/> -->
+                                </td>
+                                <td colspan ="2">Goggles</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">قفازات مطاطيه / احنيه مطاطية</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_pvc_gloves=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_pvc_gloves=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_pvc_gloves"/> -->
+                                </td>
+                                <td colspan ="2">PVC Gloves/PVC boots</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">اجهزة تنفس </td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_scab=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_scab=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_scab"/> -->
+                                </td>
+                                <td colspan ="2">SCAB sets</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">اقنعة حماية الوجه</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_face_visors=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_face_visors=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_face_visors"/> -->
+                                </td>
+                                <td colspan ="2">Face visors</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">اجهزة تنفس هواء</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_air_mask=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_air_mask=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_air_mask"/> -->
+                                </td>
+                                <td colspan ="2">Air supplied masks</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">ملابس مضادة للكبماويات</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_chemical_res_clothes=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_chemical_res_clothes=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_chemical_res_clothes"/> -->
+                                </td>
+                                <td colspan ="2">Chemical resistant clothes</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">احزمة سلامة وحبل إنقاذ</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_safety_belts=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_safety_belts=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_safety_belts"/> -->
+                                </td>
+                                <td colspan ="2">Safety belts and life lines</td>
+                            </tr>
+                            <tr>
+                                <td colspan ="2" class="text-right">بدل واقية من الأمونيا</td>
+                                <td class="text-center" colspan ="2">
+                                    <span t-if="o.related_is_capsulated_ammonia=='Yes'">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span t-if="o.related_is_capsulated_ammonia=='No'">
+                                        <i class="fa fa-times"></i>
+                                    </span>
+                                    <!-- <span t-field="o.related_is_capsulated_ammonia"/> -->
+                                </td>
+                                <td colspan ="2">Capsulated ammonia suit</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: right ;border:none;"> متطلبات أخري لمهمات السلامه والاجراءت</td>
+
+                                <td colspan="3" style="text-align: left;border:none;">Other safety gears or actions</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="text-align: left">
+                                    <p t-field="o.related_other_safety" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: right ;border:none;"> Level of assign. To followup the job on site<br/>
+                                المستوي الاشرافي لمتابعة الغمل في الموقع</td>
+                                <td style="text-align: center;border:none;">Operator<br/>
+                                مشفل                                <br/>
+                                <span t-if="o.related_level_asssgin=='Operator'">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                            </td>
+                            <td style="text-align: center;border:none;">Unit head <br/>
+                                رئيس وحدة                            <br/>
+                            <span t-if="o.related_level_asssgin=='Unit Head'">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </td>
+                        <td style="text-align: center;border:none;">Supervisor <br/>
+                                رئيس ورديه                        <br/>
+                        <span t-if="o.related_level_asssgin=='Supervisor'">
+                            <i class="fa fa-check"></i>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;border:none;">I certify that I have taken all the required am actions (item A) to Start safely</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right ;border:none;"> اقر باننى قمت بأخذ الاجراءات المذكورة(بند أ) اعلاء للقيام بالعمل بأمان</td>
+                </tr>
+                <tr>
+                    <td>Name /الاسم </td>
+                    <td>
+                        <span t-field="o.related_hremp" />
+                    </td>
+                    <td>Empl.No./رقم القيد</td>
+                    <td>
+                        <span t-field="o.related_empid" />
+                    </td>
+                    <td rowspan="2" colspan ="2">
+                                    Sign. /التوقع  
+                        <img t-att-src="'data:image/png;base64,%s' % to_text(o.related_binary_s)" style="max-height: 100px;"/>
+                    </td >
+                </tr>
+                <tr>
+                    <td>Time / الوقت </td>
+                    <td>
+                        <span t-field="o.related_datetime" t-options='{"format": "hh:mm"}'/>
+                    </td>
+                    <td>Date /التاريخ  </td>
+                    <td>
+                        <span t-field="o.related_datetime" t-options='{"format": "dd/MM/yyyy"}'/>
+                    </td>
+                </tr>
+                <!--      Safety                   -->
+                <tr class="text-light bg-dark">
+                    <td colspan ="3" style="border:none;" class="text-right">إدارة السلامة</td>
+                    <td colspan ="3" style="border:none;" class="text-left">HS &amp; E</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <table class="table table-bordered o_main_table" style="width: 100%">
+                            <tr style="background:lightgray">
+                                <td> acutal level </td>
+                                <td>safety level </td>
+                                <td> material</td>
+                            </tr>
+                            <t t-foreach="o.safety_hsematerial_id" t-as="i">
+                                <tr>
+                                    <td>
+                                        <span t-field="i.actual_value"/>
+                                        <span t-field="i.munit"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="i.safety_value"/>
+                                        <span t-field="i.munit"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="i.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" style="text-align: left;border:none;">I certify that safety equipment and clothing required (item B) have been applied for safe work</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right ;border:none;"> أقر بأنة تم تطبيق معدات و ملابس السلامه المطلوبة (بند ب) للقيام بالعمل بطريقه امنة</td>
+                </tr>
+
+                <tr>
+                    <td>Name /الاسم </td>
+                    <td>
+                        <span t-field="o.safety_hremp" />
+                    </td>
+                    <td>Empl.No./رقم القيد</td>
+                    <td>
+                        <span t-field="o.safety_empid" />
+                    </td>
+                    <td rowspan="2" colspan ="2">
+                                    Sign. /التوقع  
+                                    <img  t-att-src="'data:image/png;base64,%s' % to_text(o.safety_binary_s)" style="max-height: 100px;"/>
+                    </td >
+                </tr>
+                <tr>
+                    <td>Time / الوقت </td>
+                    <td>
+                        <span t-field="o.safety_datetime" t-options='{"format": "hh:mm"}'/>
+                    </td>
+                    <td>Date /التاريخ  </td>
+                    <td>
+                        <span t-field="o.safety_datetime" t-options='{"format": "dd/MM/yyyy"}'/>
+                    </td>
+                </tr>
+                <!--        performer -->
+
+                <tr class="text-light bg-dark">
+                    <td colspan ="3" style="border:none;" class="text-right">الإدارة المنفذه</td>
+                    <td colspan ="3" style="border:none;" class="text-left">Performer</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;border:none;">Performing authority signature for job site supervision requirement &amp; precaution needed for safe</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right ;border:none;"> توقيع مسئول التنفيذ للاشراف علي العمل والعلم بالإحتياطات و الشروط اللازمة للتنفيذ السليم الآمن</td>
+                </tr>
+
+                <tr>
+                    <td>Name /الاسم </td>
+                    <td>
+                        <span t-field="o.performer_hremp" />
+                    </td>
+                    <td>Empl.No./رقم القيد</td>
+                    <td>
+                        <span t-field="o.performer_empid" />
+                    </td>
+                    <td rowspan="2" colspan ="2">
+                                    Sign. /التوقع  
+                                    <img  t-att-src="'data:image/png;base64,%s' % to_text(o.performer_binary_s)" style="max-height: 100px;"/>
+                    </td >
+                </tr>
+                <tr>
+                    <td>Time / الوقت </td>
+                    <td>
+                        <span t-field="o.performer_datetime" t-options='{"format": "hh:mm"}'/>
+                    </td>
+                    <td>Date /التاريخ  </td>
+                    <td>
+                        <span t-field="o.performer_datetime" t-options='{"format": "dd/MM/yyyy"}'/>
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </div>
+    </div>
+</t>
+</t>
+</template>
+</odoo>

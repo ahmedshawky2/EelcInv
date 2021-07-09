@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <report id="am_r_report_1" model="purchase.order" string="CY RFQ" print_report_name = "(('RFQ#'+(object.name or '')).replace('/','')+'.pdf')" report_type="qweb-pdf" name="assetrequest.am_report_1" file="assetrequest.am_report_1" />
+
+    <template id="am_report_1">
+        <t t-name="purchase.report_purchaseorder">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="assetrequest.am_report_2" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="am_report_2">
+        <t t-name="assetrequest.report_purchaseorder_document_high">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+
+
+
+
+<style type="text/css">
+<![CDATA[
+
+
+
+.basefont
+{
+    
+    font-family:"Calibri",sans-serif;
+    font-size:20px; 
+
+}
+
+]]>
+</style>
+
+                <div class="page basefont">
+                    <h1 style="text-align: center;">RFQ# <b><span t-field="o.name"/></b>
+                </h1>
+                <br/>
+                <div class="row">
+                    <div class="col-6">
+
+
+
+                    </div>
+                    <div class="col-6">
+                        <p style=' text-align:center;background:#E7E6E6;'>
+                            <b>
+                                <span >Customer Details</span>
+                            </b>
+                        </p>
+                        <p class='m-0'>
+                            <b>
+                                <span class="">Date: </span>
+                            </b>
+                            <span t-field="o.date_order" t-options='{"widget": "date"}'/>
+                        </p>
+                        <p class='m-0'>
+                            <b>
+                                <span class="">Company:</span>
+                            </b>
+                            <span> CyShield</span>
+                        </p>
+                        <p class='m-0'>
+                            <b>
+                                <span class="">Delivery Address: </span>
+                            </b>
+                            <span>22 A, Ebad El Rahman, Sheraton, Cairo, Egypt</span>
+                        </p>
+                        <p class='m-0'>
+                            <b>
+                                <span  class="">Contact Person:</span>
+                            </b>
+                            <span> Zeinab Gamal</span>
+                        </p>
+                    </div>
+                </div>
+
+                <br/>
+
+
+                <div class="oe_structure"/>
+
+
+
+
+
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th name="th_product_id">
+                                <b>Product</b>
+                            </th>
+
+                            <th name="th_description">
+                                <b>Description</b>
+                            </th>
+
+
+
+                            <th name="th_quantity" class="text-right">
+                                <b>Qty</b>
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-foreach="o.order_line" t-as="line">
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                            <tr t-att-class="'bg-200 font-weight- o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type">
+                                    <td id="productid">
+                                        <span t-field="line.product_id"/>
+                                    </td>
+
+                                    <td id="product">
+                                        <span t-field="line.name"/>
+                                    </td>
+
+
+
+                                    <td class="text-right">
+                                        <span t-field="line.product_qty"/>
+                                        <span t-field="line.product_uom.name" groups="uom.group_uom"/>
+                                    </td>
+
+
+                                </t>
+
+                            </tr>
+
+                        </t>
+                    </tbody>
+                </table>
+
+
+<br/>
+<br/>
+                <b><h3>Terms and conditions</h3></b>
+                <!--<p>
+                    <b>
+                        <h5 >Delivery:</h5>
+                    </b>
+                </p>
+                <ul>
+                    <li>
+                        <span style=''>Immediate</span>
+                    </li>
+                    <li>
+                        <span style=''>Delivery on Supplier.</span>
+                    </li>
+                </ul>
+                <p>
+                    <b>
+                        <h5 >Payment:</h5>
+                    </b>
+                </p>
+                <ul>
+                    <li>
+                        <span style=''>Bank Transfer after receiving the Invoice.</span>
+                    </li>
+                    <li>
+                        <span style=''>Prices are Including 14 % VAT.</span>
+                    </li>
+                    <li>
+                        <span style="">All offered Prices are in EGP currency.</span>
+                    </li>
+                </ul>
+
+
+                <p style=' text-align:right'>
+                    <b>
+                        Purchasing Department   
+                    </b>
+                    <br />
+                    <b>
+                        <span style=' color:#002060;'></span>
+                    </b>
+                    <b>
+                        <span style=' color:#002060;'>Zeinab Gamal</span>
+                    </b>
+                </p>-->
+
+                <p t-field="o.notes"/>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+
+</odoo>
