@@ -1707,7 +1707,7 @@ msgstr "جهات اتصال إضافية"
 #: model_terms:ir.ui.view,arch_db:elecinvocie.am_report_2
 #: model_terms:ir.ui.view,arch_db:elecinvocie.am_reportsample_2
 msgid "Additional No."
-msgstr "الرقم الاضا في للعنوان"
+msgstr "الرقم الاضافي للعنوان"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_tax_repartition_line_template__tag_ids
@@ -3775,7 +3775,7 @@ msgstr ""
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_register_form
 msgid "Create Payment"
-msgstr ""
+msgstr "تسجيل دفعة"
 
 #. module: account
 #: code:addons/account/models/company.py:0
@@ -4719,7 +4719,7 @@ msgstr ""
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Disc.%"
-msgstr ""
+msgstr "نسبه الخصم"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.account_tour_upload_bill
@@ -6567,7 +6567,7 @@ msgstr "حالة الفاتورة"
 #: model:ir.model.fields,field_description:account.field_account_tax_repartition_line__invoice_tax_id
 #: model:ir.model.fields,field_description:account.field_account_tax_repartition_line_template__invoice_tax_id
 msgid "Invoice Tax"
-msgstr "ضريبة الفاتورة"
+msgstr "فاتورة ضريبية"
 
 #. module: account
 #: code:addons/account/models/account_tax.py:0
@@ -10063,7 +10063,7 @@ msgstr "تاريخ الانعكاس"
 #: model:ir.model.fields,field_description:account.field_account_move__reversed_entry_id
 #: model:ir.model.fields,field_description:account.field_account_payment__reversed_entry_id
 msgid "Reversal of"
-msgstr ""
+msgstr "عكس ل"
 
 #. module: account
 #: code:addons/account/wizard/account_move_reversal.py:0
@@ -10273,7 +10273,7 @@ msgstr ""
 #. module: elecinvocie
 #: model:ir.actions.report,name:elecinvocie.am_r_reportsample_1
 msgid "Sample Invoice Tax"
-msgstr ""
+msgstr "فاتورة ضريبية المبسطة"
 
 #. module: account
 #: code:addons/account/models/account_journal_dashboard.py:0
