@@ -2,7 +2,7 @@
     'name': 'elecinvocie',
     'description': 'elecinvocie',
     'author': '',
-    'depends': ['base','account','sale_management','l10n_generic_coa'],
+    'depends': ['base'],
     'application': True,
     'data': [
 
