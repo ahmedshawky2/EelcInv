@@ -2,7 +2,7 @@
     'name': 'elecinvocie',
     'description': 'elecinvocie',
     'author': '',
-    'depends': ['base','account','account_accountant','l10n_sa'],
+    'depends': ['base','account','account_accountant','l10n_sa','muk_web_theme','account_reports','account_reports_tax','mail_enterprise'],
     'application': True,
     'data': [
 
@@ -15,7 +15,7 @@
     #'views/ir_ui_menu.xml',
      'views/reports/invoice.xml',
      'views/reports/sampleinvocie.xml',
-     'views/reports/sampleinvociepos.xml',
+     #'views/reports/sampleinvociepos.xml',
      'data/data.xml',
     
         ],

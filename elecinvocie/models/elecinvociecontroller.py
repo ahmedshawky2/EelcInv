@@ -29,6 +29,7 @@ class elecinvocie (http.Controller):
         
         #return base_url
         #return invociekeycode
+        #cust_id=request.env['ir.config_parameter'].sudo().get_param('CUSTOMER_INV_ID')
         recs = request.env['account.move'].sudo().search([('qr_unique_code','=',invociekeycode)],limit=1)
         
         invociekey = recs.id

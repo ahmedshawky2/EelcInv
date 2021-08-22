@@ -54,6 +54,11 @@
 
         </record>
 
+        <record id="main_id_5" model="ir.config_parameter">
+            <field name="key">CUSTOMER_INV_ID</field>
+            <field name="value">__CUSID__</field>
+           
 
+        </record>
     </data>
 </odoo>

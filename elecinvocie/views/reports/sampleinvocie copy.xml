@@ -49,57 +49,53 @@ tr
 
                 </style>
                 <div class="page basefont">
-                    
+                <img t-att-src="'data:image/png;base64,%s' % to_text(o.qr_code_sample)" style="max-height: 200px;" />
                     <div class="container">
                         <div class="text-center">
                             <h4>فاتورة ضريبية المبسطة</h4>
                             <h4>Simplified Tax Invoice</h4>
                         </div>
                         <br />
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    <table class="table table-bordered">
-                                        <td>Invoice Number</td>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <td>Invoice Number</td>
+                                    <td>
+                                        <span t-field="o.name" />
+                                    </td>
+                                    <td class="text-end">رقم الفاتورة</td>
+                                </table>
+
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Invoice Issue Date</td>
                                         <td>
-                                            <span t-field="o.name" />
+                                            <span t-field="o.invoice_date" />
                                         </td>
-                                        <td class="text-end">رقم الفاتورة</td>
-                                    </table>
+                                        <td class="text-end">تاريخ اصدار الفاتورة</td>
+                                    </tr>
 
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>Invoice Issue Date</td>
-                                            <td>
-                                                <span t-field="o.invoice_date" />
-                                            </td>
-                                            <td class="text-end">تاريخ اصدار الفاتورة</td>
-                                        </tr>
-
-                                        <!-- <tr>
+                                    <!-- <tr>
                                         <td>Date of Supply</td>
                                         <td>
                                             <span t-field="o.supply_date" />
                                         </td>
                                         <td class="text-end">تاريخ التوريد</td>
                                     </tr> -->
-                                    </table>
-                                </td>
-                                <td>
+                                </table>
+                            </div>
 
-                                    <div class="col">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(o.qr_code_sample)" style="max-height: 200px;" />
+                            <div class="col">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.qr_code_sample)" style="max-height: 200px;" />
 
-                                    </div>
-                                </td>
-                            </tr>
+                            </div>
+                        </div>
 
-                        </table>
                         <table class="table table-bordered">
                             <thead>
                                 <tr class="bg-secondary text-white">
                                     <td colspan="3">Seller المورد</td>
-
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -298,10 +294,10 @@ tr
                             </thead>
 
                             <tbody>
-                                <t t-set="total_taxable_Amount" t-value="0"/>
+                            <t t-set="total_taxable_Amount" t-value="0"/>
                                 <t t-foreach="o.invoice_line_ids" t-as="line">
-                                    <t t-set="current_tax" t-value="line.price_total-line.price_subtotal"/>
-                                    <t t-set="total_taxable_Amount" t-value="total_taxable_Amount + (line.price_unit*line.quantity)"/>
+                                 <t t-set="current_tax" t-value="line.price_total-line.price_subtotal"/>
+                                 <t t-set="total_taxable_Amount" t-value="total_taxable_Amount + (line.price_unit*line.quantity)"/>
                                     <tr>
                                         <td>
                                             <span t-field="line.name" />
@@ -324,17 +320,15 @@ tr
                                             </t>
                                         </td>
                                         <td><span t-esc="round(current_tax,2)"/> SR	</td> -->
-                                        <td>
-                                            <span t-field="line.price_total" />
-                                        </td>
+                                        <td><span t-field="line.price_total" /></td>
                                     </tr>
                                 </t>
                             </tbody>
                         </table>
 
                         <br />
-                        <t t-set="total_tax" t-value="o.amount_total-o.amount_untaxed"/>
-                        <t t-set="total_disc" t-value="total_taxable_Amount-o.amount_untaxed"/>
+<t t-set="total_tax" t-value="o.amount_total-o.amount_untaxed"/>
+<t t-set="total_disc" t-value="total_taxable_Amount-o.amount_untaxed"/>
 
                         <table class="table table-bordered">
                             <thead class="bg-secondary text-white">
@@ -359,9 +353,7 @@ tr
 
                                 <tr>
                                     <td>Total Taxable Amount (Excluding VAT)</td>
-                                    <td colspan="2">
-                                        <span t-field="o.amount_untaxed" />
-                                    </td>
+                                    <td colspan="2"><span t-field="o.amount_untaxed" /></td>
                                     <td class="text-end">
                 الاجمالي الخاضع للضريبة (غير شامل ضريبية القيمة المضافة)
                                     </td>
@@ -369,18 +361,14 @@ tr
 
                                 <tr>
                                     <td>Total VAT</td>
-                                    <td colspan="2">
-                                        <span t-esc="round(total_tax,2)"/>
- SR</td>
-
+                                    <td colspan="2"><span t-esc="round(total_tax,2)"/> SR</td>
+                           
                                     <td class="text-end">مجموع ضريبة القيمةالمضافة</td>
                                 </tr>
 
                                 <tr>
                                     <td>Total Amount Due</td>
-                                    <td colspan="2">
-                                        <span t-field="o.amount_total" />
-                                    </td>
+                                    <td colspan="2"><span t-field="o.amount_total" /></td>
                                     <td class="text-end">اجمالي المبلغ المستحق</td>
                                 </tr>
                             </tbody>

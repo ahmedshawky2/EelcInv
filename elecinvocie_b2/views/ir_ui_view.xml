@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+
+
+    <record model="ir.ui.menu" id="point_of_sale.menu_pos_config_pos">
+      <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+
+  </data>
+</odoo>

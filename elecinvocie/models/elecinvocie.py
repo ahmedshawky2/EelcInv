@@ -82,7 +82,8 @@ class elecinvocie (models.Model):
     def generate_qr_unique_code(self):
         try:
             for rec in self :
-                rec.qr_unique_code = hashlib.md5(rec.name.replace("/","_").encode()).hexdigest()
+                cust_id=self.env['ir.config_parameter'].sudo().get_param('CUSTOMER_INV_ID')
+                rec.qr_unique_code = hashlib.md5((rec.name.replace("/","_") +cust_id).encode()).hexdigest()
                 
                 rec.generate_qr_code()
         except:
