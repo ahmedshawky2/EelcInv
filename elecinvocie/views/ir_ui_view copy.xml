@@ -44,8 +44,6 @@
       <field name="priority">99</field>
       <field name="type">form</field>
     </record>
-
-
     <record id="invocie_tree_inherit" model="ir.ui.view">
       <field name="active" eval="True"/>
       <field name="arch" type="xml">
@@ -65,7 +63,25 @@
       <field name="priority">99</field>
       <field name="type">tree</field>
     </record>
-
+    <record id="view_out_invoice_tree_inhiert" model="ir.ui.view">
+      <field name="active" eval="True"/>
+      <field name="arch" type="xml">
+        <data>
+          <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
+            <field name="comapny_tax_id" string="Tax ID"/>
+          </xpath>
+        </data>
+      </field>
+      <field name="field_parent" eval="False"/>
+      <field name="groups_id" eval="[(6, 0, [])]"/>
+      <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+      <field name="key" eval="False"/>
+      <field name="mode">extension</field>
+      <field name="model">account.move</field>
+      <field name="name">account.out.invoice.tree customization</field>
+      <field name="priority">99</field>
+      <field name="type">tree</field>
+    </record>
     <record id="view_company_form_inhiret" model="ir.ui.view">
       <field name="active" eval="True"/>
       <field name="arch" type="xml">
@@ -111,31 +127,10 @@
       <field name="type">form</field>
     </record>
 
-    <record id="view_out_invoice_tree_inhiert" model="ir.ui.view">
-      <field name="active" eval="True"/>
-      <field name="arch" type="xml">
-        <data>
-          <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
-            <field name="comapny_tax_id" string="Tax ID"/>
-          </xpath>
-        </data>
-      </field>
-      <field name="field_parent" eval="False"/>
-      <field name="groups_id" eval="[(6, 0, [])]"/>
-      <field name="inherit_id" ref="account.view_out_invoice_tree"/>
-      <field name="key" eval="False"/>
-      <field name="mode">extension</field>
-      <field name="model">account.move</field>
-      <field name="name">account.out.invoice.tree customization</field>
-      <field name="priority">99</field>
-      <field name="type">tree</field>
-    </record>
 
 
 
-    <record model="ir.ui.menu" id="point_of_sale.menu_pos_config_pos">
-      <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
-    </record>
+
 
   </data>
 </odoo>

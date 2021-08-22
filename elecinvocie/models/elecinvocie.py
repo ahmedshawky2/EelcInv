@@ -9,6 +9,7 @@ import requests
 import qrcode
 import base64
 from io import BytesIO
+import hashlib
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -23,10 +24,13 @@ class elecinvocie (models.Model):
     qr_link = fields.Char(string='Url')
     qr_unique_code = fields.Char(string='Code',index=True)
     supply_date  = fields.Date(string='Date of Supply')
+    comapny_tax_id  = fields.Char(string='Company Tax' ,related ="company_id.vat")
+    isqrgenreated = fields.Boolean(string='isqrgenreated',default=False)
+    
 
 
 
-    @api.onchange('qr_unique_code')
+    #@api.onchange('qr_unique_code')
     def generate_qr_code(self):
         qr = qrcode.QRCode(
             version=1,
@@ -42,8 +46,8 @@ class elecinvocie (models.Model):
             border=4,
         )
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        self.qr_link = base_url+"/invoicetax?invociekey=" +str(self.id).replace("NewId_","")
-        self.qr_link_sample = base_url+"/sampleinvoicetax?invociekey=" +str(self.id).replace("NewId_","")
+        self.qr_link = base_url+"/invoicetax?invociekey=" +str(self.qr_unique_code ) #str(self.id).replace("NewId_","")
+        self.qr_link_sample = base_url+"/sampleinvoicetax?invociekey=" +str(self.qr_unique_code )#+str(self.id).replace("NewId_","")
         
         qr.add_data(self.qr_link)
         qr.make(fit=True)
@@ -63,20 +67,38 @@ class elecinvocie (models.Model):
         
         self.qr_code = qr_image
         self.qr_code_sample = qr_image_sample
+        self.isqrgenreated = True
 
 
 
-    
+    # def write(self, vals):
+    #     # if not self.isqrgenreated:
+    #     #     self.generate_qr_code()
+        
+    #     return super().write(vals)
+  
 
-    @api.onchange('name')
+    # @api.onchange('name')
     def generate_qr_unique_code(self):
-        self.qr_unique_code = self.name.replace("/","_")
-        self.generate_qr_code()
+        try:
+            for rec in self :
+                rec.qr_unique_code = hashlib.md5(rec.name.replace("/","_").encode()).hexdigest()
+                
+                rec.generate_qr_code()
+        except:
+            pass
 
     def action_post(self):
-        
-        res = super(elecinvocie,self).action_post()
-        self.generate_qr_unique_code()
+        for rec in self :
+            res = super(elecinvocie,rec).action_post()
+            rec.generate_qr_unique_code()
+            return res
     
+
+    def _post(self,soft=True):
+        for rec in self :
+            res = super(elecinvocie,rec)._post()
+            rec.generate_qr_unique_code()
+            return res
   
   

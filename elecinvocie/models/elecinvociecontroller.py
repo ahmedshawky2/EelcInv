@@ -7,6 +7,7 @@
 # import string
 # import requests
 
+from typing import ValuesView
 from odoo import http
 from odoo.http import request
 
@@ -28,10 +29,11 @@ class elecinvocie (http.Controller):
         
         #return base_url
         #return invociekeycode
-        #recs = request.env['account.move'].sudo().search([('qr_unique_code','=',invociekeycode)],limit=1)
-        #invociekey = recs.id
-        #return invociekey
-        invociekey = int(invociekeycode)
+        recs = request.env['account.move'].sudo().search([('qr_unique_code','=',invociekeycode)],limit=1)
+        
+        invociekey = recs.id
+        #return str(invociekey)
+        invociekey = int(invociekey)
         if invociekey:
             # pdf = request.env['report'].sudo().get_pdf([invociekey], 'elecinvocie.am_r_report_1', data=None)
             # pdfhttpheaders = [('Content-Type', 'application/pdf'), ('Content-Length', len(pdf))]
@@ -44,7 +46,7 @@ class elecinvocie (http.Controller):
             ]
             return request.make_response(pdf)
         else:
-            return request.redirect('/')
+            return "Wrong URL"
 
     @http.route('/sampleinvoicetax', methods=['POST', 'GET'], csrf=False, type='http', auth="none", website=True)
     def sampleinvoicetax(self, **kw):
@@ -55,7 +57,12 @@ class elecinvocie (http.Controller):
         #recs = request.env['account.move'].sudo().search([('qr_unique_code','=',invociekeycode)],limit=1)
         #invociekey = recs.id
         #return invociekey
-        invociekey = int(invociekeycode)
+        recs = request.env['account.move'].sudo().search([('qr_unique_code','=',invociekeycode)],limit=1)
+        
+        invociekey = recs.id
+        #return str(invociekey)
+        invociekey = int(invociekey)
+        #invociekey = int(invociekeycode)
         if invociekey:
             # pdf = request.env['report'].sudo().get_pdf([invociekey], 'elecinvocie.am_r_report_1', data=None)
             # pdfhttpheaders = [('Content-Type', 'application/pdf'), ('Content-Length', len(pdf))]
@@ -68,7 +75,7 @@ class elecinvocie (http.Controller):
             ]
             return request.make_response(pdf)
         else:
-            return request.redirect('/')
+            return "Wrong URL"
 
 
         
