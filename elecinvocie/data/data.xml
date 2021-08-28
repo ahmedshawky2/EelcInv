@@ -57,8 +57,22 @@
         <record id="main_id_5" model="ir.config_parameter">
             <field name="key">CUSTOMER_INV_ID</field>
             <field name="value">__CUSID__</field>
-           
+
 
         </record>
+
+
+        <record id="main_id_7" model="elecinvociesetting">
+            <field name="name">Amir</field>
+            <field name="bundle">Bundle1</field>
+            <field name="desc">تم تصميم برنامج عن طريق شركه هات العالميه</field>
+
+
+        </record>
+ 
+
+
+
+
     </data>
 </odoo>

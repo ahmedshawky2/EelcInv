@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/elecinvocie_b2/static/src/js/pos_demo.js"></script>
+            <script type="text/javascript" src="/elecinvocie_b2/static/src/lib/qrcode.min.js"></script>
+            <script type="text/javascript" src="/elecinvocie_b2/static/src/lib/crypto-js.min.js"></script>
+            <link rel="stylesheet" href="/elecinvocie_b2/static/src/scss/pos_demo.scss"/>
+        </xpath>
+    </template>
+</odoo>

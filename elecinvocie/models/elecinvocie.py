@@ -18,6 +18,8 @@ _logger = logging.getLogger(__name__)
 class elecinvocie (models.Model):
     _inherit = 'account.move'
 
+
+    seq_cust = fields.Char(string='Sequence',index=True)
     qr_code = fields.Binary("QR Code", attachment=True, store=True)
     qr_code_sample = fields.Binary("QR Code", attachment=True, store=True)
     qr_link_sample = fields.Char(string='Url Sample')

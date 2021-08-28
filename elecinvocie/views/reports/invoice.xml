@@ -62,7 +62,7 @@ tr
 }
 
                 </style>
-                <div class="page basefont">
+                <div class="page basefont" dir="ltr">
                     <div class="container">
                         <div class="text-center">
                             <h4>فاتورة ضريبية</h4>

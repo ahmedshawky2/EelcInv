@@ -134,5 +134,91 @@
 
 
 
+    <!-- elecinvociesetting-->
+    <record id="action_elecinvociesetting" model="ir.actions.act_window">
+      <field name="name">About</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">elecinvociesetting</field>
+      <field name="res_id" eval="ref('elecinvocie.main_id_7')"/>
+
+      <field name="view_mode">form</field>
+
+
+    </record>
+
+    <menuitem id="parent_menu_elecinvociesetting" name="About" action="action_elecinvociesetting" web_icon="elecinvocie,static/description/icon.png" sequence="3000" />
+
+    <record id="view_elecinvociesetting_list" model="ir.ui.view">
+      <field name="name">view_elecinvociesetting_list</field>
+      <field name="model">elecinvociesetting</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name" optional="show"/>
+
+        </tree>
+      </field>
+    </record>
+    <record id="view_elecinvociesetting_form" model="ir.ui.view">
+      <field name="name">view_elecinvociesetting_form</field>
+      <field name="model">elecinvociesetting</field>
+
+      <field name="arch" type="xml">
+        <form  >
+          <header>
+            <!--<button name="setactive" type="object" string="Activate" class="oe_highlight" states="PENDING,DEACTIVE" attrs="{}"/>
+                 
+       
+                 <field name="state" widget="statusbar" />-->
+          </header>
+
+          <sheet>
+
+            <div name="button_box" class="oe_button_box">
+            </div>
+            <div class="oe_title">
+              <!-- <h1>
+                    <field name="name" placeholder="Name"/>
+                  </h1> -->
+            </div>
+
+
+            <group name="main_group">
+              <group name="group_left">
+                <field name="name" placeholder="Name"/>
+              </group>
+              <group name="group_right">
+                <field name="bundle" />
+              </group>
+            </group>
+
+            <div class="oe_title">
+              <h3>
+                <field name="desc" />
+              </h3>
+            </div>
+
+
+
+
+
+            <!-- <notebook name="main_notebook">
+                    <page name="page1" string="page name">
+                      
+                    </page>
+                  </notebook> -->
+
+
+          </sheet>
+          <!-- <div class="oe_chatter" name="mainchatterview">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+              </div> -->
+        </form>
+      </field>
+    </record>
+
+
+
   </data>
 </odoo>
